@@ -34,9 +34,10 @@ class IGG:
             } for game in games
         ]
 
-    def search(self, string, limit=30):
+    def search(self, string, limit=5):
         all_games = self.all_games
-        matches = process.extract(string, [game['name'] for game in self.all_games], limit=limit)
+        matches = process.extract(string, [game['href'] for game in self.all_games], limit=limit)
+        return [Game(match[0]) for match in matches]
 
 
 class Game:
@@ -99,4 +100,8 @@ game_href = igg.all_games[16602]['href']
 game = Game(game_href)
 print(game.title.text)
 # print(game.tags)
-print(igg.search('sims'))
+games = igg.search('sims')
+
+for g in games:
+    print(g.title)
+    print(g.download_links)
