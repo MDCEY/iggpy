@@ -48,7 +48,8 @@ class Game:
 
     @property
     def title(self):
-        return self.soup.select_one('h1')
+        match = self.soup.find('h1')
+        return match.text
 
     @property
     def download_links(self):
@@ -98,7 +99,7 @@ class Game:
 igg = IGG()
 game_href = igg.all_games[16602]['href']
 game = Game(game_href)
-print(game.title.text)
+print(game.title)
 # print(game.tags)
 games = igg.search('sims')
 
